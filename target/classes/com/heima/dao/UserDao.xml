@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.heima.mapper.UserDao">
+    
+    <resultMap id="userAccountMap" type="user">
+        <id property="id" column="id"></id>
+        <result property="username" column="username"></result>
+        <result property="address" column="address"></result>
+        <result property="sex" column="sex"></result>
+        <result property="birthday" column="birthday"></result>
+        
+        <collection property="account" ofType="account">
+            <id property="id" column="aid"></id>
+            <result property="uid" column="uid"></result>
+            <result property="money" column="money"></result>
+        </collection>
+        
+    </resultMap>
+    
+    <select id="findAll" resultMap="userAccountMap">
+        select * from userhma u left outer join account a on u.id=a.uid
+    </select>
+
+    <insert id="saveUser" parameterType="user">
+        insert into userhma(username,birthday,sex,address)values(#{username},#{birthday},#{sex},#{address})
+    </insert>
+
+    <update id="updateUser" parameterType="user">
+		update userhma set username=#{username},birthday=#{birthday},sex=#{sex},address=#{address} where id=#{id}
+	</update>
+    <!--模糊查询-->
+    <select id="selectByName" parameterType="string" resultType="user" >
+        select * from userhma where username like #{name}
+    </select>
+</mapper>

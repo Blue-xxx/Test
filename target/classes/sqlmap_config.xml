@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+
+    <typeAliases>
+        <!--<typeAlias type="User" alias = "user"/>-->
+        <!--用于指定要配置别名的包，指定之后，该包下面的实体类（user）都会注册别名，并且类名就是
+        别名，不区分大小写-->
+        <package name="com.heima.dao"></package>
+    </typeAliases>
+    <!--主配置文件-->
+    <!--配置环境-->
+    <environments default="mysql">
+        <!--配置mysql环境-->
+        <environment id="mysql">
+            <!--配置事务类型jdbc-->
+            <transactionManager type="JDBC"></transactionManager>
+            <!--配置数据源（连接池）-->
+            <dataSource type="POOLED">
+                <!--配置数据库的基本信息-->
+                <property name="driver" value="com.mysql.cj.jdbc.Driver"/>
+                <property name="url" value="jdbc:mysql://localhost:3306/test1?useSSL=false&amp;serverTimezone=UTC"/>
+                <property name="username" value="root"/>
+                <property name="password" value="xjh9910110"/>
+            </dataSource>
+           
+        </environment>
+    </environments>
+    <!--指定映射文件位置 映射配置文件-->
+    <mappers>
+        <mapper resource="com/heima/dao/UserDao.xml"/>
+        <mapper resource="com/heima/dao/IAccountDao.xml"/>
+        <!--<mapper class="com.heima.mapper.UserDao"></mapper>-->
+        <!--使用package方式一定要把接口和xml名字一样且放在同一个目录下面，实体类放另外一个文件夹里面-->
+        <!--<package name="com.heima.mapper"></package>-->
+    </mappers>
+
+</configuration>
